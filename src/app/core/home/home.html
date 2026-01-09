@@ -1,0 +1,168 @@
+<main class="hp-home" role="main">
+  <!-- Background layers -->
+  <div class="hp-home__bg" aria-hidden="true">
+    <div class="hp-home__bg-stars"></div>
+    <div class="hp-home__bg-glow"></div>
+    <div class="hp-home__bg-fog"></div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hp-hero">
+    <div class="hp-hero__content">
+      <div class="hp-badge">
+        <span class="hp-badge__dot" aria-hidden="true"></span>
+        Angular 21 • Signals ready
+      </div>
+
+      <h1 class="hp-hero__title">
+        Entre dans la bibliothèque
+        <span class="hp-hero__title-accent">magique</span>
+      </h1>
+
+      <p class="hp-hero__subtitle">
+        Consulte les maisons, les personnages et les sortilèges.
+        Une UI premium, sombre, lumineuse, et un soupçon de poussière d’étoiles.
+      </p>
+
+      <div class="hp-hero__actions">
+        <a class="hp-btn hp-btn--big" routerLink="/characters">
+          <span class="hp-btn__icon" aria-hidden="true">🧙</span>
+          Voir les personnages
+        </a>
+
+        <a class="hp-btn hp-btn--big hp-btn--ghost" routerLink="/houses">
+          <span class="hp-btn__icon" aria-hidden="true">🏰</span>
+          Choisir une maison
+        </a>
+      </div>
+
+      <div class="hp-hero__stats">
+        <div class="hp-stat">
+          <div class="hp-stat__value">4</div>
+          <div class="hp-stat__label">Maisons</div>
+        </div>
+        <div class="hp-stat">
+          <div class="hp-stat__value">∞</div>
+          <div class="hp-stat__label">Histoires</div>
+        </div>
+        <div class="hp-stat">
+          <div class="hp-stat__value">+</div>
+          <div class="hp-stat__label">Sorts</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right card -->
+    <aside class="hp-hero__panel" aria-label="Accès rapide">
+      <div class="hp-panel">
+        <div class="hp-panel__header">
+          <div class="hp-panel__title">
+            <span class="hp-panel__wand" aria-hidden="true">🪄</span>
+            Accès rapide
+          </div>
+          <div class="hp-panel__hint">Tape un nom, un sort, un lieu…</div>
+        </div>
+
+        <div class="hp-search">
+          <span class="hp-search__icon" aria-hidden="true">⌕</span>
+          <input
+            class="hp-search__input"
+            type="text"
+            placeholder="Ex: Hermione, Lumos, Serdaigle…"
+            autocomplete="off"
+          />
+          <button class="hp-search__btn" type="button">
+            Rechercher
+          </button>
+        </div>
+
+        <div class="hp-panel__grid">
+          <a class="hp-card hp-card--gold" routerLink="/houses">
+            <div class="hp-card__top">
+              <div class="hp-card__icon" aria-hidden="true">🏰</div>
+              <div class="hp-card__tag">Maisons</div>
+            </div>
+            <div class="hp-card__title">Choisir ta bannière</div>
+            <div class="hp-card__desc">Gryffondor, Serpentard, Poufsouffle, Serdaigle.</div>
+          </a>
+
+          <a class="hp-card hp-card--emerald" routerLink="/characters">
+            <div class="hp-card__top">
+              <div class="hp-card__icon" aria-hidden="true">🧙</div>
+              <div class="hp-card__tag">Personnages</div>
+            </div>
+            <div class="hp-card__title">Explorer le casting</div>
+            <div class="hp-card__desc">Cherche, filtre, ouvre une fiche détaillée.</div>
+          </a>
+
+          <a class="hp-card hp-card--violet" routerLink="/spells">
+            <div class="hp-card__top">
+              <div class="hp-card__icon" aria-hidden="true">✨</div>
+              <div class="hp-card__tag">Sortilèges</div>
+            </div>
+            <div class="hp-card__title">Apprendre des sorts</div>
+            <div class="hp-card__desc">Du plus simple au plus interdit.</div>
+          </a>
+
+          <div class="hp-card hp-card--ink">
+            <div class="hp-card__top">
+              <div class="hp-card__icon" aria-hidden="true">📜</div>
+              <div class="hp-card__tag">Mode</div>
+            </div>
+            <div class="hp-card__title">Parchemin vivant</div>
+            <div class="hp-card__desc">Animations douces, contrastes premium.</div>
+          </div>
+        </div>
+
+        <div class="hp-panel__footer">
+          <div class="hp-quote">
+            <div class="hp-quote__mark" aria-hidden="true">“</div>
+            <div class="hp-quote__text">
+              Les mots sont notre source de magie la plus inépuisable.
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Bottom section -->
+  <section class="hp-bottom">
+    <div class="hp-bottom__title">Commence ton voyage</div>
+
+    <div class="hp-bottom__row">
+      <div class="hp-feature">
+        <div class="hp-feature__icon" aria-hidden="true">🕯️</div>
+        <div class="hp-feature__content">
+          <div class="hp-feature__title">Ambiance immersive</div>
+          <div class="hp-feature__desc">Lueurs, textures, profondeur, sans en faire trop.</div>
+        </div>
+      </div>
+
+      <div class="hp-feature">
+        <div class="hp-feature__icon" aria-hidden="true">🧭</div>
+        <div class="hp-feature__content">
+          <div class="hp-feature__title">Navigation claire</div>
+          <div class="hp-feature__desc">Un hero fort + cartes d’accès rapide.</div>
+        </div>
+      </div>
+
+      <div class="hp-feature">
+        <div class="hp-feature__icon" aria-hidden="true">⚙️</div>
+        <div class="hp-feature__content">
+          <div class="hp-feature__title">Prête pour tes pages</div>
+          <div class="hp-feature__desc">Tu plugges tes routes, resolvers, signals ensuite.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="hp-footer">
+    <div class="hp-footer__left">© Wizarding Codex</div>
+    <div class="hp-footer__right">
+      <a class="hp-link hp-link--subtle" routerLink="/about">À propos</a>
+      <span class="hp-footer__sep" aria-hidden="true">•</span>
+      <a class="hp-link hp-link--subtle" routerLink="/legal">Mentions</a>
+    </div>
+  </footer>
+</main>

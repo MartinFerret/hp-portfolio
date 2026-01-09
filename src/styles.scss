@@ -1,1 +1,79 @@
-/* You can add global styles to this file, and also import other style files */
+/* =========================
+   Wizarding Theme Tokens (Dark HP)
+   (global app.scss)
+   ========================= */
+
+:root {
+  /* Base colors (plus sombres, plus "encre") */
+  --hp-ink: #07080d;      /* quasi noir */
+  --hp-night: #0a0c14;    /* nuit profonde */
+  --hp-night-2: #0f1320;  /* bleu-noir */
+
+  /* Accents (plus "chandelle / dorure / potion") */
+  --hp-gold: #c7a24a;     /* dorure chaude */
+  --hp-emerald: #1f9b74;  /* vert potion, moins flashy */
+  --hp-violet: #6f63c6;   /* violet sorcier, plus sombre */
+
+  /* Text */
+  --hp-text: rgba(244, 238, 225, 0.92);
+  --hp-text-soft: rgba(244, 238, 225, 0.74);
+  --hp-text-muted: rgba(244, 238, 225, 0.58);
+
+  /* Surfaces / strokes (moins blancs, plus subtils) */
+  --hp-stroke: rgba(255, 255, 255, 0.10);
+  --hp-stroke-2: rgba(255, 255, 255, 0.06);
+  --hp-glass: rgba(14, 16, 24, 0.66);
+  --hp-glass-2: rgba(14, 16, 24, 0.46);
+
+  /* Shadows */
+  --hp-shadow: rgba(0, 0, 0, 0.55);
+  --hp-shadow-2: rgba(0, 0, 0, 0.75);
+
+  /* Radius scale */
+  --hp-r-12: 12px;
+  --hp-r-16: 16px;
+  --hp-r-18: 18px;
+  --hp-r-22: 22px;
+
+  /* Spacing */
+  --hp-s-10: 10px;
+  --hp-s-12: 12px;
+  --hp-s-14: 14px;
+  --hp-s-16: 16px;
+  --hp-s-18: 18px;
+  --hp-s-22: 22px;
+
+  /* Motion */
+  --hp-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --hp-fast: 160ms;
+  --hp-mid: 240ms;
+}
+
+/* =========================
+   Base globale
+   ========================= */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--hp-text);
+
+  /* Ambiance sombre + chandelle : peu de saturation, lueurs contrôlées */
+  background:
+    radial-gradient(900px 520px at 18% 18%, rgba(199, 162, 74, 0.10), transparent 60%),
+    radial-gradient(820px 520px at 84% 26%, rgba(111, 99, 198, 0.07), transparent 62%),
+    radial-gradient(980px 640px at 60% 86%, rgba(31, 155, 116, 0.06), transparent 66%),
+    radial-gradient(1200px 720px at 50% 40%, rgba(255, 255, 255, 0.025), transparent 70%),
+    linear-gradient(180deg, var(--hp-night), var(--hp-ink));
+
+  background-attachment: fixed;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

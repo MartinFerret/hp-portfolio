@@ -1,0 +1,283 @@
+/* header.component.scss (ou topbar.component.scss) */
+/* Dépend des variables globales : --hp-*, sinon remplace par des valeurs fixes */
+
+:host {
+  display: block;
+}
+
+.hp-topbar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  padding: 14px;
+  border-radius: var(--hp-r-18, 18px);
+  border: 1px solid var(--hp-stroke-2, rgba(255, 255, 255, 0.08));
+
+  background: linear-gradient(180deg, var(--hp-glass, rgba(20, 24, 42, 0.58)), rgba(10, 12, 18, 0.22));
+  box-shadow: 0 18px 60px var(--hp-shadow, rgba(0, 0, 0, 0.45));
+  backdrop-filter: blur(12px);
+
+  // petit “highlight” premium en bordure
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      radial-gradient(600px 120px at 20% 0%, rgba(214, 178, 94, 0.14), transparent 60%),
+      radial-gradient(520px 120px at 80% 0%, rgba(167, 139, 250, 0.10), transparent 60%);
+    opacity: 0.9;
+    mix-blend-mode: screen;
+  }
+
+  // micro “grain” subtil
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.16) 0px,
+        rgba(255, 255, 255, 0.16) 1px,
+        transparent 2px,
+        transparent 6px
+    );
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 220px;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 6px;
+    border-radius: 999px;
+    border: 1px solid var(--hp-stroke-2, rgba(255, 255, 255, 0.08));
+    background: rgba(10, 12, 18, 0.18);
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    min-width: 220px;
+  }
+}
+
+.hp-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+
+  padding: 6px 10px 6px 6px;
+  border-radius: 999px;
+  transition: transform var(--hp-fast, 160ms) var(--hp-ease, ease),
+  background var(--hp-fast, 160ms) var(--hp-ease, ease);
+
+  &:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  &:active {
+    transform: translateY(0px);
+  }
+
+  &__sigil {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+
+    border-radius: var(--hp-r-12, 12px);
+    border: 1px solid rgba(214, 178, 94, 0.35);
+    background:
+      radial-gradient(18px 18px at 30% 30%, rgba(214, 178, 94, 0.32), transparent 70%),
+      rgba(10, 12, 18, 0.35);
+    box-shadow: 0 10px 30px rgba(214, 178, 94, 0.12);
+
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  &__name {
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    color: var(--hp-text, rgba(245, 240, 230, 0.92));
+    white-space: nowrap;
+  }
+}
+
+.hp-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 9px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+
+  color: rgba(245, 240, 230, 0.78);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+
+  transition:
+    transform var(--hp-fast, 160ms) var(--hp-ease, ease),
+    background var(--hp-fast, 160ms) var(--hp-ease, ease),
+    color var(--hp-fast, 160ms) var(--hp-ease, ease),
+    border-color var(--hp-fast, 160ms) var(--hp-ease, ease);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(245, 240, 230, 0.95);
+    transform: translateY(-1px);
+  }
+
+  &.is-active {
+    background: rgba(214, 178, 94, 0.12);
+    color: rgba(245, 240, 230, 0.95);
+    border: 1px solid rgba(214, 178, 94, 0.26);
+
+    // petit trait lumineux
+    &::after {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 6px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(214, 178, 94, 0.65), transparent);
+      opacity: 0.9;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(214, 178, 94, 0.35);
+    outline-offset: 2px;
+  }
+}
+
+.hp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(214, 178, 94, 0.22);
+
+  background: linear-gradient(180deg, rgba(214, 178, 94, 0.18), rgba(10, 12, 18, 0.25));
+  color: rgba(245, 240, 230, 0.95);
+  font-weight: 800;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    transform var(--hp-fast, 160ms) var(--hp-ease, ease),
+    box-shadow var(--hp-fast, 160ms) var(--hp-ease, ease),
+    background var(--hp-fast, 160ms) var(--hp-ease, ease),
+    border-color var(--hp-fast, 160ms) var(--hp-ease, ease);
+
+  &__icon {
+    filter: drop-shadow(0 10px 18px rgba(214, 178, 94, 0.25));
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.35);
+  }
+
+  &:active {
+    transform: translateY(0px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(214, 178, 94, 0.35);
+    outline-offset: 2px;
+  }
+
+  &--ghost {
+    border: 1px solid var(--hp-stroke, rgba(255, 255, 255, 0.12));
+    background: rgba(10, 12, 18, 0.18);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .hp-topbar {
+    flex-wrap: wrap;
+    justify-content: center;
+
+    &__left,
+    &__right {
+      min-width: unset;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    &__nav {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .hp-topbar {
+    padding: 12px;
+
+    &__right {
+      gap: 8px;
+
+      .hp-btn {
+        padding: 9px 12px;
+      }
+    }
+  }
+
+  .hp-link {
+    padding: 9px 10px;
+  }
+}
+
+/* Accessibilité : réduit les animations si demandé */
+@media (prefers-reduced-motion: reduce) {
+  .hp-topbar,
+  .hp-brand,
+  .hp-link,
+  .hp-btn {
+    transition: none !important;
+  }
+}
