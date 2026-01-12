@@ -1,16 +1,36 @@
 import { Routes } from '@angular/router';
 import {Home} from './core/home/home';
+import {Notfound} from './core/notfound/notfound';
 
 export const routes: Routes = [
   { path: '', component: Home, title: 'Home' }, // Eager.
   {
     path: 'characters', // Lazy-loading.
-    loadComponent: () => import('./components/characters/characters')
-      .then(component => component.Characters),
-    title: 'Characters',
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./components/characters/characters')
+          .then(component => component.Characters),
+        title: 'Characters',
+        data: {
+          section: 'Harry Potter',
+          breadcrumb: 'Characters'
+        }
+      },
+      {
+        path: ':id', loadComponent: () => import('./components/character-detail/character-detail').then(component => component.CharacterDetail),
+        title: 'Character Detail',
+      }
+    ],
+  },
+  {
+    path: 'staff',
+    loadComponent: () => import('./components/staff/staff').then(component => component.Staff),
+    title: 'HP - Staff',
     data: {
       section: 'Harry Potter',
-      breadcrumb: 'Characters'
+      breadcrumb: 'Staff'
     }
-  }
+  },
+  { path: '**', component: Notfound, title: 'Not Found'}
 ];
