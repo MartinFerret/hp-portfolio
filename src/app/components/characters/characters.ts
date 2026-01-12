@@ -1,8 +1,8 @@
-import { Component, inject, computed} from '@angular/core';
-import {CharacterService} from '../../shared/services/characters/character-service';
+import {Component, inject, computed, Signal} from '@angular/core';
 import {CharactersList} from './components/characters-list/characters-list';
 import {ActivatedRoute} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {CharacterModel} from '../../shared/models/character.model';
 
 @Component({
   selector: 'app-characters',
@@ -14,15 +14,13 @@ import {toSignal} from '@angular/core/rxjs-interop';
 })
 export class Characters {
 
-  private characterService = inject(CharacterService);
   private activatedRoute = inject(ActivatedRoute);
-
-  protected characters = toSignal(this.characterService.getAllCharacter(), {initialValue: []})
 
   private routeData = toSignal(this.activatedRoute.data, {
     initialValue: this.activatedRoute.snapshot.data
   });
 
-  protected section = computed(() => this.routeData()['section']);
-  protected breadcrumb = computed(() => this.routeData()['breadcrumb']);
+  protected characters: Signal<CharacterModel[]> = computed(() => this.routeData()['characters']);
+  protected section: Signal<string> = computed(() => this.routeData()['section']);
+  protected breadcrumb: Signal<string> = computed(() => this.routeData()['breadcrumb']);
 }

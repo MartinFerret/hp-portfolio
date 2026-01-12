@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import {Home} from './core/home/home';
 import {Notfound} from './core/notfound/notfound';
+import {inject} from '@angular/core';
+import {CharacterService} from './shared/services/characters/character-service';
 
 export const routes: Routes = [
   { path: '', component: Home, title: 'Home' }, // Eager.
@@ -15,6 +17,9 @@ export const routes: Routes = [
         data: {
           section: 'Harry Potter',
           breadcrumb: 'Characters'
+        },
+        resolve: {
+          characters: () => inject(CharacterService).getAllCharacter()
         }
       },
       {
