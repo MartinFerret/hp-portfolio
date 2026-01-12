@@ -1,0 +1,393 @@
+/* characters.component.scss — Netflix-like (dark + red accent) */
+
+:host {
+  display: block;
+}
+
+/* Page */
+.hp-characters {
+  /* Netflix-ish tokens (local) */
+  --nx-bg: #141414;
+  --nx-bg-2: #0b0b0b;
+  --nx-surface: rgba(255, 255, 255, 0.06);
+  --nx-stroke: rgba(255, 255, 255, 0.10);
+  --nx-stroke-2: rgba(255, 255, 255, 0.06);
+  --nx-text: rgba(255, 255, 255, 0.92);
+  --nx-muted: rgba(255, 255, 255, 0.68);
+  --nx-red: #e50914;
+  --nx-red-2: rgba(229, 9, 20, 0.28);
+  --nx-shadow: rgba(0, 0, 0, 0.65);
+  --nx-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+
+  min-height: 100%;
+  padding: 22px;
+  color: var(--nx-text);
+
+  background:
+    radial-gradient(900px 420px at 18% 0%, rgba(229, 9, 20, 0.14), transparent 60%),
+    radial-gradient(900px 420px at 85% 0%, rgba(255, 255, 255, 0.06), transparent 58%),
+    linear-gradient(180deg, var(--nx-bg), var(--nx-bg-2));
+
+  &__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  & article {
+    cursor: pointer;
+  }
+
+  &__title {
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 3vw, 44px);
+      letter-spacing: 0.2px;
+      font-weight: 900;
+    }
+  }
+
+  &__subtitle {
+    margin: 8px 0 0;
+    color: var(--nx-muted);
+    max-width: 75ch;
+    line-height: 1.55;
+  }
+
+  &__meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+}
+
+/* Count pill */
+.hp-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--nx-stroke);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+
+  font-weight: 900;
+  letter-spacing: 0.2px;
+
+  &__spark {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+
+    background: var(--nx-red-2);
+    border: 1px solid rgba(229, 9, 20, 0.42);
+    box-shadow: 0 14px 50px rgba(229, 9, 20, 0.12);
+  }
+}
+
+/* Grid */
+.hp-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Card */
+.hp-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+
+  border: 1px solid var(--nx-stroke-2);
+  background: rgba(0, 0, 0, 0.35);
+
+  box-shadow: 0 26px 120px var(--nx-shadow);
+  transform: translateZ(0);
+  transition:
+    transform 240ms var(--nx-ease),
+    box-shadow 240ms var(--nx-ease),
+    border-color 240ms var(--nx-ease);
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 36px 160px rgba(0, 0, 0, 0.78);
+  }
+
+  /* Gros accent “Netflix red” en bordure au hover */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 20px;
+    pointer-events: none;
+    opacity: 0;
+    background:
+      radial-gradient(920px 240px at 30% 0%, rgba(229, 9, 20, 0.35), transparent 60%),
+      radial-gradient(740px 280px at 90% 0%, rgba(255, 255, 255, 0.10), transparent 58%);
+    transition: opacity 240ms var(--nx-ease);
+    mix-blend-mode: screen;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  /* Media (image dominante) */
+  &__media {
+    position: relative;
+    height: 300px; /* dominant */
+    overflow: hidden;
+    background: #0f0f0f;
+    border-bottom: 1px solid var(--nx-stroke-2);
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+
+    transform: scale(1.02);
+    transition: transform 420ms var(--nx-ease), filter 420ms var(--nx-ease);
+    filter: contrast(1.05) saturate(1.05);
+  }
+
+  &:hover &__img {
+    transform: scale(1.10);
+    filter: contrast(1.10) saturate(1.10);
+  }
+
+  &__img--fallback {
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(520px 260px at 30% 30%, rgba(229, 9, 20, 0.18), transparent 65%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.35));
+  }
+
+  &__fallbackGlyph {
+    font-size: 44px;
+    font-weight: 900;
+    opacity: 0.9;
+  }
+
+  &__fallbackText {
+    margin-top: 6px;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+    opacity: 0.7;
+  }
+
+  /* Film overlay */
+  &__veil {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.82)),
+      radial-gradient(520px 240px at 25% 20%, rgba(255, 255, 255, 0.12), transparent 68%);
+  }
+
+  /* Top badges */
+  &__top {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Bottom title area */
+  &__bottom {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  &__name {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 950;
+    letter-spacing: 0.2px;
+    text-shadow: 0 24px 90px rgba(0, 0, 0, 0.75);
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Body (infos) */
+  &__body {
+    padding: 14px 14px 16px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.36));
+  }
+}
+
+/* House pill -> neutral, Netflix style */
+.hp-house {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--nx-stroke);
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(10px);
+
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.35px;
+
+  &__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--nx-red);
+    box-shadow: 0 0 0 6px rgba(229, 9, 20, 0.14);
+  }
+
+  &--none {
+    opacity: 0.75;
+  }
+}
+
+/* Alive badge */
+.hp-life {
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--nx-stroke);
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(10px);
+
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.35px;
+
+  &--alive { color: rgba(140, 255, 190, 0.92); }
+  &--dead { color: rgba(255, 160, 160, 0.92); }
+}
+
+/* Chips */
+.hp-chip {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--nx-stroke-2);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.86);
+  font-weight: 850;
+  font-size: 12px;
+  letter-spacing: 0.2px;
+
+  &--accent {
+    border-color: rgba(229, 9, 20, 0.35);
+    background: rgba(229, 9, 20, 0.14);
+  }
+}
+
+/* Rows */
+.hp-row {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  gap: 10px;
+
+  padding: 10px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
+
+  & + & { margin-top: 10px; }
+}
+
+.hp-k {
+  font-weight: 950;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.hp-v {
+  font-weight: 750;
+  color: rgba(255, 255, 255, 0.92);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Empty state */
+.hp-empty {
+  padding: 56px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.35);
+  text-align: center;
+
+  &__icon {
+    font-size: 44px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  &__title {
+    font-weight: 950;
+    letter-spacing: 0.2px;
+  }
+
+  &__desc {
+    margin-top: 6px;
+    color: rgba(255, 255, 255, 0.70);
+    font-weight: 650;
+  }
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .hp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .hp-card__media {
+    height: 320px;
+  }
+}
+
+@media (max-width: 575px) {
+  .hp-characters {
+    padding: 16px;
+
+    &__header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  .hp-grid { grid-template-columns: 1fr; }
+
+  .hp-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .hp-card__media {
+    height: 360px; /* encore plus dominant */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hp-card,
+  .hp-card__img {
+    transition: none !important;
+  }
+}

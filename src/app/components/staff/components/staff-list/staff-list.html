@@ -1,0 +1,9 @@
+@if (staff().length === 0) {
+  <p>No staff found.</p>
+} @else {
+  <strong>Total : {{ staff().length }}</strong>
+}
+
+@for (singleStaff of staff(); track singleStaff.id) {
+  {{ singleStaff.name }}
+}

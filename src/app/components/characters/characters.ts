@@ -1,9 +1,8 @@
-import {ChangeDetectorRef, Component, inject, OnInit, signal, OnDestroy} from '@angular/core';
-import {CharacterModel} from '../../shared/models/character.model';
-import {CharacterService} from '../../shared/services/character-service';
+import { Component, inject, computed} from '@angular/core';
+import {CharacterService} from '../../shared/services/characters/character-service';
 import {CharactersList} from './components/characters-list/characters-list';
-import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-characters',
@@ -13,38 +12,17 @@ import {ActivatedRoute} from '@angular/router';
   templateUrl: './characters.html',
   styleUrl: './characters.scss',
 })
-export class Characters implements OnInit, OnDestroy {
-
-  protected characters = signal<CharacterModel[]>([]);
-  protected section = signal('');
-  protected breadcrumb = signal('');
+export class Characters {
 
   private characterService = inject(CharacterService);
   private activatedRoute = inject(ActivatedRoute);
-  // Subscriptions.
-  // private subscriptions: Subscription[] = [];
-  private subscriptions: Subscription[] = [];
 
-  ngOnInit() {
-    this.getAllCharacters();
-    this.getActivatedRouteData();
-  }
+  protected characters = toSignal(this.characterService.getAllCharacter(), {initialValue: []})
 
-  private getAllCharacters () {
-    this.subscriptions.push(this.characterService.getAllCharacter().subscribe((allCharacters: CharacterModel[]) => {
-      this.characters.set(allCharacters);
-    }));
-  }
+  private routeData = toSignal(this.activatedRoute.data, {
+    initialValue: this.activatedRoute.snapshot.data
+  });
 
-  private getActivatedRouteData() {
-    this.subscriptions.push(this.activatedRoute.data.subscribe((data) => {
-      this.section.set(data['section']);
-      this.breadcrumb.set(data['breadcrumb']);
-    }))
-  }
-
-  ngOnDestroy() {
-    // Implémenter notre logique.
-    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
-  }
+  protected section = computed(() => this.routeData()['section']);
+  protected breadcrumb = computed(() => this.routeData()['breadcrumb']);
 }

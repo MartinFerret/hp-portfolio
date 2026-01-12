@@ -1,28 +1,154 @@
-<h1>Harry Potter - Characters</h1>
+<section class="hp-characters">
+  <header class="hp-characters__header">
+    <div class="hp-characters__title">
+      <h1>Harry Potter — Characters</h1>
+      <p class="hp-characters__subtitle">
+        Une galerie immersive : portraits, maisons, baguettes, patronus.
+      </p>
+    </div>
 
-@if (characters().length > 0) {
-  <p>Total : <strong>{{ characters().length }} characters</strong></p>
-} @else {
-  <p>No characters found</p>
-}
+    @if (characters().length > 0) {
+      <div class="hp-characters__meta">
+        <span class="hp-count">
+          <span class="hp-count__spark" aria-hidden="true">✦</span>
+          <strong>{{ characters().length }}</strong>
+          <span>characters</span>
+        </span>
+      </div>
+    }
+  </header>
 
-@for (character of characters(); track character.id) {
-  <h1>{{ character.house }}</h1>
-} @empty {
-  <p>No characters found in the list.</p>
-}
+  @if (characters().length === 0) {
+    <div class="hp-empty">
+      <div class="hp-empty__orb" aria-hidden="true"></div>
+      <div class="hp-empty__icon" aria-hidden="true">🪄</div>
+      <div class="hp-empty__title">Aucun personnage trouvé</div>
+      <div class="hp-empty__desc">Vérifie ton appel API ou tes filtres.</div>
+    </div>
+  } @else {
+    <div class="hp-grid">
+      @for (character of characters(); track character.id) {
+        <article
+          (click)="goToCharacterDetail(character.id)"
+          class="hp-card"
+          [class.hp-card--gryffindor]="character.house === 'Gryffindor'"
+          [class.hp-card--slytherin]="character.house === 'Slytherin'"
+          [class.hp-card--ravenclaw]="character.house === 'Ravenclaw'"
+          [class.hp-card--hufflepuff]="character.house === 'Hufflepuff'"
+        >
+          <!-- Media -->
+          <div class="hp-card__media">
+            @if (character.image) {
+              <img class="hp-card__img" [src]="character.image" [alt]="character.name" loading="lazy" />
+            } @else {
+              <div class="hp-card__img hp-card__img--fallback" aria-hidden="true">
+                <div class="hp-card__fallbackGlyph">✧</div>
+                <div class="hp-card__fallbackText">No portrait</div>
+              </div>
+            }
 
----------
+            <div class="hp-card__veil" aria-hidden="true"></div>
+            <div class="hp-card__sparkles" aria-hidden="true"></div>
 
-<!-- Old version -->
-<div *ngIf="characters().length > 0; else noCharacters">
-  <p>Total : <strong>{{ characters().length }} characters</strong></p>
-</div>
+            <div class="hp-card__top">
+              @if (character.house) {
+                <span class="hp-house">
+                  <span class="hp-house__dot" aria-hidden="true"></span>
+                  {{ character.house }}
+                </span>
+              } @else {
+                <span class="hp-house hp-house--none">
+                  <span class="hp-house__dot" aria-hidden="true"></span>
+                  Unknown House
+                </span>
+              }
 
-<ng-template #noCharacters>
-  <p>No characters found</p>
-</ng-template>
+              <span
+                class="hp-life"
+                [class.hp-life--alive]="character.alive"
+                [class.hp-life--dead]="!character.alive"
+              >
+                {{ character.alive ? 'Alive' : 'Deceased' }}
+              </span>
+            </div>
 
-<div>
-  <h1 *ngFor="let character of characters(); trackBy: trackById"> {{ character.house }}</h1>
-</div>
+            <div class="hp-card__bottom">
+              <h2 class="hp-card__name">{{ character.name }}</h2>
+
+              <div class="hp-card__chips">
+                <span class="hp-chip">{{ character.species }}</span>
+                <span class="hp-chip">{{ character.gender }}</span>
+
+                @if (character.hogwartsStudent) {
+                  <span class="hp-chip hp-chip--accent">Student</span>
+                }
+                @if (character.hogwartsStaff) {
+                  <span class="hp-chip hp-chip--accent">Staff</span>
+                }
+                @if (character.wizard) {
+                  <span class="hp-chip hp-chip--accent">Wizard</span>
+                }
+              </div>
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="hp-card__body">
+            <div class="hp-row">
+              <span class="hp-k">Actor</span>
+              <span class="hp-v">{{ character.actor || '—' }}</span>
+            </div>
+
+            <div class="hp-row">
+              <span class="hp-k">Ancestry</span>
+              <span class="hp-v">{{ character.ancestry || '—' }}</span>
+            </div>
+
+            <div class="hp-row">
+              <span class="hp-k">Eyes / Hair</span>
+              <span class="hp-v">
+                {{ character.eyeColour || '—' }} / {{ character.hairColour || '—' }}
+              </span>
+            </div>
+
+            <div class="hp-row">
+              <span class="hp-k">Birth</span>
+              <span class="hp-v">
+                @if (character.dateOfBirth) {
+                  {{ character.dateOfBirth }}
+                } @else if (character.yearOfBirth) {
+                  {{ character.yearOfBirth }}
+                } @else {
+                  —
+                }
+              </span>
+            </div>
+
+            <div class="hp-row">
+              <span class="hp-k">Patronus</span>
+              <span class="hp-v">{{ character.patronus || '—' }}</span>
+            </div>
+
+            <div class="hp-wand">
+              <div class="hp-wand__icon" aria-hidden="true">🪄</div>
+              <div class="hp-wand__text">
+                <div class="hp-wand__title">Wand</div>
+                @if (character.wand?.wood || character.wand?.core || character.wand?.length) {
+                  <div class="hp-wand__desc">
+                    {{ character.wand?.wood || '—' }}
+                    <span class="hp-sep" aria-hidden="true">•</span>
+                    {{ character.wand?.core || '—' }}
+                    <span class="hp-sep" aria-hidden="true">•</span>
+                    @if (character.wand?.length) { {{ character.wand.length }} } @else { — } in
+                  </div>
+                } @else {
+                  <div class="hp-wand__desc">—</div>
+                }
+              </div>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

@@ -1,23 +1,22 @@
-import {Component, input} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {CharacterModel} from '../../../../shared/models/character.model';
-import {NgForOf, NgIf} from '@angular/common';
+import {Router, RouterLink} from '@angular/router';
 
 
 @Component({
   selector: 'app-characters-list',
   imports: [
-    NgIf,
-    NgForOf],
+    RouterLink
+  ],
   templateUrl: './characters-list.html',
   styleUrl: './characters-list.scss',
 })
 export class CharactersList {
-  // @Input() characters: CharacterModel[] = [];
-
+  private router = inject(Router);
   // Mode signal.
   characters = input.required<CharacterModel[]>();
 
-  protected trackById(index: number, character: CharacterModel) {
-    return character.id;
+  protected goToCharacterDetail(id: string) {
+    this.router.navigate(['/characters', id]);
   }
 }
