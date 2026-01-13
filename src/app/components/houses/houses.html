@@ -1,0 +1,13 @@
+@if (houses().length > 1) {
+  <p>We have {{ houses().length }} houses</p>
+} @else if (houses().length === 1) {
+  <p>We have {{ houses().length }} house</p>
+}@else {
+  <p>No houses found.</p>
+}
+
+@for (house of houses(); track house) {
+  <ul>
+    <li [routerLink]="['/houses', house]"><strong>{{ house }}</strong></li>
+  </ul>
+}

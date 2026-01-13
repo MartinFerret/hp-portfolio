@@ -1,5 +1,5 @@
 import {Component, inject, input} from '@angular/core';
-import {CharacterModel} from '../../../../shared/models/character.model';
+import {CharacterModel} from '@models/character.model';
 import {Router, RouterLink} from '@angular/router';
 
 

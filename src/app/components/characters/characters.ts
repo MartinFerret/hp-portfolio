@@ -2,7 +2,7 @@ import {Component, inject, computed, Signal} from '@angular/core';
 import {CharactersList} from './components/characters-list/characters-list';
 import {ActivatedRoute} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {CharacterModel} from '../../shared/models/character.model';
+import {CharacterModel} from '@models/character.model';
 
 @Component({
   selector: 'app-characters',

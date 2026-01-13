@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {StaffModel} from '../../../../shared/models/staff';
+import {StaffModel} from '@models/staff.model';
 
 @Component({
   selector: 'app-staff-list',

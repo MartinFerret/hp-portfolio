@@ -5,7 +5,6 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
   selector: 'app-home',
   imports: [
     RouterLink,
-    RouterLinkActive
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',

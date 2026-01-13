@@ -2,7 +2,7 @@ import {Component, computed, inject, Signal} from '@angular/core';
 import {StaffList} from './components/staff-list/staff-list';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {ActivatedRoute} from '@angular/router';
-import {StaffModel} from '../../shared/models/staff';
+import {StaffModel} from '@models/staff.model';
 
 @Component({
   selector: 'app-staff',

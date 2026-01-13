@@ -1,0 +1,9 @@
+
+<h1>{{ characters().length }} Characters of the house : {{ houseName() | titlecase }}</h1>
+@for(character of characters(); track character.id) {
+  <ul>
+    <li>
+      {{ character.name }}
+    </li>
+  </ul>
+}

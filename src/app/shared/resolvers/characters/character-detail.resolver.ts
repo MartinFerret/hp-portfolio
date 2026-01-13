@@ -1,6 +1,6 @@
 import {ResolveFn} from '@angular/router';
 import {CharacterModel} from '../../models/character.model';
-import {CharacterService} from './character-service';
+import {CharacterService} from '../../services/characters/character-service';
 import {inject} from '@angular/core';
 import {map} from 'rxjs';
 

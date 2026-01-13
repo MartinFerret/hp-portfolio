@@ -2,14 +2,18 @@ import { Routes } from '@angular/router';
 import {Home} from './core/home/home';
 import {Notfound} from './core/notfound/notfound';
 import {inject} from '@angular/core';
-import {CharacterService} from './shared/services/characters/character-service';
-import {StaffService} from './shared/services/staff/staff';
-import {characterDetailResolver} from './shared/services/characters/character-detail.resolver';
+import {CharacterService} from '@services/characters/character-service';
+import {StaffService} from '@services/staff/staff';
+import {characterDetailResolver} from '@resolvers/characters/character-detail.resolver';
+import {HouseService} from '@services/house/house-service';
+import {houseDetailResolver} from '@resolvers/houses/house-detail-resolver';
+import {authGuard} from '@guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: Home, title: 'Home' }, // Eager.
   {
     path: 'characters', // Lazy-loading.
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -32,6 +36,27 @@ export const routes: Routes = [
         }
       }
     ],
+  },
+  {
+    path: 'houses',
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./components/houses/houses').then(component => component.Houses),
+        title: 'Houses',
+        resolve: {
+          houses: () => inject(HouseService).getAllHouses()
+        }
+      },
+      {
+        path: ':houseName',
+        loadComponent: () => import('./components/house-detail/house-detail').then(component => component.HouseDetail),
+        title: 'Houses',
+        resolve: {
+          house: houseDetailResolver
+        }
+      }
+    ]
   },
   {
     path: 'staff',
