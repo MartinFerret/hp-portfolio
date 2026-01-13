@@ -1,9 +1,8 @@
-import {Component, inject} from '@angular/core';
+import {Component, computed, inject, Signal} from '@angular/core';
 import {StaffList} from './components/staff-list/staff-list';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {StaffService} from '../../shared/services/staff/staff';
-import {httpResource} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
+import {ActivatedRoute} from '@angular/router';
+import {StaffModel} from '../../shared/models/staff';
 
 @Component({
   selector: 'app-staff',
@@ -14,9 +13,12 @@ import {environment} from '../../../environments/environment';
   styleUrl: './staff.scss',
 })
 export class Staff {
-  private staffService = inject(StaffService);
-  protected staff = toSignal(this.staffService.getAllStaff(), {initialValue: []})
+  private activatedRoute = inject(ActivatedRoute);
 
-  // httpResource.
-  protected staffResource = httpResource(() => environment.baseUrl + '/characters/staff');
+  private routeData = toSignal(this.activatedRoute.data, {
+    initialValue: this.activatedRoute.snapshot.data
+  });
+
+  protected staff: Signal<StaffModel[]> = computed(() => this.routeData()['staff']);
+
 }

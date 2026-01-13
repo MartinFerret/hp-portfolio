@@ -1,10 +1,8 @@
-import {Component, effect, inject} from '@angular/core';
+import {Component, computed, effect, inject, Signal} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {CharacterService} from '../../shared/services/characters/character-service';
 import {CharacterModel} from '../../shared/models/character.model';
 import {ActivatedRoute} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {map, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-character-detail',
@@ -14,16 +12,13 @@ import {map, switchMap} from 'rxjs';
 })
 export class CharacterDetail {
   private titleService = inject(Title);
-  private characterService = inject(CharacterService);
   private activatedRoute = inject(ActivatedRoute);
 
-  protected character = toSignal(
-    this.activatedRoute.paramMap.pipe(
-      map((params) => params.get('id')!),
-      switchMap((id: string) => this.characterService.getCharacterById(id)),
-      map((list: CharacterModel[]) => list[0] ?? null)
-    ), { initialValue: null }
-  )
+  private routeData = toSignal(this.activatedRoute.data, {
+    initialValue: this.activatedRoute.snapshot.data
+  });
+
+  protected character: Signal<CharacterModel> = computed(() => this.routeData()['character']);
 
   constructor() {
     effect(() => {

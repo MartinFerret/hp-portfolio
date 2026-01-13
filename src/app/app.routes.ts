@@ -3,6 +3,8 @@ import {Home} from './core/home/home';
 import {Notfound} from './core/notfound/notfound';
 import {inject} from '@angular/core';
 import {CharacterService} from './shared/services/characters/character-service';
+import {StaffService} from './shared/services/staff/staff';
+import {characterDetailResolver} from './shared/services/characters/character-detail.resolver';
 
 export const routes: Routes = [
   { path: '', component: Home, title: 'Home' }, // Eager.
@@ -25,6 +27,9 @@ export const routes: Routes = [
       {
         path: ':id', loadComponent: () => import('./components/character-detail/character-detail').then(component => component.CharacterDetail),
         title: 'Character Detail',
+        resolve: {
+          character: characterDetailResolver
+        }
       }
     ],
   },
@@ -35,6 +40,9 @@ export const routes: Routes = [
     data: {
       section: 'Harry Potter',
       breadcrumb: 'Staff'
+    },
+    resolve: {
+      staff: () => inject(StaffService).getAllStaff()
     }
   },
   { path: '**', component: Notfound, title: 'Not Found'}
