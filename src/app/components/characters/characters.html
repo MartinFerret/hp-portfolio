@@ -1,4 +1,9 @@
-{{ section() }} - {{ breadcrumb() }}
+<button (click)="toggleAddCharacter()" >Add Character</button>
+@if (showAddCharacter()) {
+  @defer {
+    <app-add-character (emitNewCharacter)="getNewCharacter($event)" />
+  }
+}
 <app-characters-list
   [characters]="characters()"
 />

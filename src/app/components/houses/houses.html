@@ -1,7 +1,9 @@
-@if (houses().length > 1) {
-  <p>We have {{ houses().length }} houses</p>
-} @else if (houses().length === 1) {
-  <p>We have {{ houses().length }} house</p>
+@let houseLength = houses().length;
+
+@if (houseLength > 1) {
+  <p>We have {{ houseLength }} houses</p>
+} @else if (houseLength === 1) {
+  <p>We have {{ houseLength }} house</p>
 }@else {
   <p>No houses found.</p>
 }
