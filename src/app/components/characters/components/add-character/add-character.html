@@ -1,0 +1,247 @@
+<form (ngSubmit)="submit()">
+<label>
+  Name *
+  <input
+    [value]="name()"
+    (input)="name.set($any($event.target).value)"
+  />
+</label>
+
+@if (!nameValid() && name().length) {
+  <p class="error">Name must be at least 2 characters.</p>
+}
+
+<label>
+  Species
+  <select
+    [value]="species()"
+    (change)="species.set($any($event.target).value)"
+  >
+    @for (s of speciesList; track s) {
+      <option [value]="s">{{ s }}</option>
+    }
+  </select>
+</label>
+
+<label>
+  Gender
+  <select
+    [value]="gender()"
+    (change)="gender.set($any($event.target).value)"
+  >
+    @for (g of genders; track g) {
+      <option [value]="g">{{ g }}</option>
+    }
+  </select>
+</label>
+
+<label>
+  House
+  <select
+    [value]="house()"
+    (change)="house.set($any($event.target).value)"
+  >
+    @for (h of houses; track h) {
+      <option [value]="h">{{ h }}</option>
+    }
+  </select>
+</label>
+
+<label>
+  Date of birth
+  <input
+    type="date"
+    [value]="dateOfBirth()"
+    (input)="dateOfBirth.set($any($event.target).value)"
+  />
+</label>
+
+<label>
+  Year of birth
+  <input
+    type="number"
+    [value]="yearOfBirth() ?? ''"
+    (input)="
+      yearOfBirth.set(
+        $any($event.target).value
+          ? $any($event.target).value
+          : null
+      )
+    "
+  />
+</label>
+
+<label>
+  <input
+    type="checkbox"
+    [checked]="wizard()"
+    (change)="wizard.set($any($event.target).checked)"
+  />
+  Wizard
+</label>
+
+<label>
+  Ancestry
+  <input
+    [value]="ancestry()"
+    (input)="ancestry.set($any($event.target).value)"
+  />
+</label>
+
+<label>
+  Eye colour
+  <input
+    [value]="eyeColor()"
+    (input)="eyeColor.set($any($event.target).value)"
+  />
+</label>
+
+<label>
+  Hair colour
+  <input
+    [value]="hairColor()"
+    (input)="hairColor.set($any($event.target).value)"
+  />
+</label>
+
+<fieldset>
+  <legend>Wand</legend>
+
+  <label>
+    Wood
+    <input
+      [value]="wand().wood"
+      (input)="setWandWood($event.target.value)"
+    />
+  </label>
+
+  <label>
+    Core
+    <input
+      [value]="wand().core"
+      (input)="setWandCore($event.target.value)"
+    />
+  </label>
+
+  <label>
+    Length
+    <input
+      type="number"
+      [value]="wand().length ?? null"
+      (input)="setWandLength(Number($event.target.value))"
+    />
+  </label>
+</fieldset>
+
+<label>
+  Patronus
+  <input
+    [value]="patronus()"
+    (input)="patronus.set($any($event.target).value)"
+  />
+</label>
+
+<label>
+  <input
+    type="checkbox"
+    [checked]="hogwartsStudent()"
+    (change)="hogwartsStudent.set($any($event.target).checked)"
+  />
+  Hogwarts student
+</label>
+
+<label>
+  <input
+    type="checkbox"
+    [checked]="hogwartsStaff()"
+    (change)="hogwartsStaff.set($any($event.target).checked)"
+  />
+  Hogwarts staff
+</label>
+
+<label>
+  Actor *
+  <input
+    [value]="actor()"
+    (input)="actor.set($any($event.target).value)"
+  />
+</label>
+
+@if (!actorValid() && actor().length) {
+  <p class="error">Actor must be at least 2 characters.</p>
+}
+
+<fieldset>
+  <legend>Alternate names</legend>
+
+  <div style="display: flex; gap: 8px; align-items: center;">
+    <input
+      [value]="newAltName()"
+      (input)="newAltName.set($event.target.value)"
+      placeholder="Add alternate name"
+    />
+    <button type="button" (click)="addAltName()">Add</button>
+  </div>
+
+  @if (alternate_names().length) {
+    <ul>
+      @for (name of alternate_names(); track name) {
+        <li>
+          {{ name }}
+          <button type="button" (click)="removeAltName(name)">
+            Remove
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</fieldset>
+
+<fieldset>
+  <legend>Alternate actors</legend>
+
+  <div style="display: flex; gap: 8px; align-items: center;">
+    <input
+      [value]="newAltActors()"
+      (input)="newAltActors.set($event.target.value)"
+      placeholder="Add alternate actor"
+    />
+    <button type="button" (click)="addAltActors()">Add</button>
+  </div>
+
+  @if (alternate_actors().length) {
+    <ul>
+      @for (actor of alternate_actors(); track actor) {
+        <li>
+          {{ actor }}
+          <button type="button" (click)="removeAltActors(actor)">
+            Remove
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</fieldset>
+
+<label>
+  <input
+    type="checkbox"
+    [checked]="alive()"
+    (change)="alive.set($any($event.target).checked)"
+  />
+  Alive
+</label>
+
+<label>
+  Image URL
+  <input
+    [value]="image()"
+    (input)="image.set($any($event.target).value)"
+    placeholder="https://..."
+  />
+</label>
+
+<button type="submit">
+  Create
+</button>
+</form>
